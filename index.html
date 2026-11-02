@@ -3,87 +3,366 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Novi — 支援 / Support</title>
-<meta name="description" content="Novi：像傳訊息一樣打一句話，作業、考試、行程、待辦、記帳就記好。支援與常見問題。">
-<link rel="stylesheet" href="style.css">
+<title>Novi：打一句，幫你分好</title>
+<meta name="description" content="Novi 是 iPhone 記事 app，也是陪你記事的小機器人。打一句話，作業、考試、行程、待辦、記帳自動分類，到時提醒。Type one line and Novi sorts homework, exams, events, to-dos and spending. Stays on your phone.">
+<link rel="canonical" href="https://t16jerry.github.io/jotly-site/">
+<meta name="theme-color" content="#CEE8FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1B2A3A" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Novi">
+<meta property="og:title" content="Novi：One line. Everything sorted.">
+<meta property="og:description" content="打一句，Novi 幫你分好。Type one line; homework, exams, events, to-dos and spending sort themselves and remind you.">
+<meta property="og:url" content="https://t16jerry.github.io/jotly-site/">
+<meta property="og:image" content="https://t16jerry.github.io/jotly-site/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Novi, a small blue robot waving, next to the words One line. Everything sorted.">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon-64.png" sizes="64x64" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" as="image" href="assets/novi-wave.webp" type="image/webp">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
 </head>
 <body>
-<header>
-  <a class="brand" href="./"><img src="icon.png" alt="" width="40" height="40"> Novi</a>
-  <nav><a href="#zh">中文</a> · <a href="#en">English</a> · <a href="privacy.html">隱私權 Privacy</a></nav>
+<svg width="0" height="0" class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-homework" viewBox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3v-12Z"/><path d="M5 16.5a3 3 0 0 1 3-3h11"/></symbol>
+  <symbol id="i-exam" viewBox="0 0 24 24"><path d="m2.5 9.5 9.5-5 9.5 5-9.5 5-9.5-5Z"/><path d="M6.5 12v5c3.3 2.4 7.7 2.4 11 0v-5"/></symbol>
+  <symbol id="i-event" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="15" rx="3"/><path d="M4 10.5h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+  <symbol id="i-expense" viewBox="0 0 24 24"><path d="M16.5 7.5c-.8-1.6-2.4-2.5-4.5-2.5-2.6 0-4.5 1.4-4.5 3.4 0 4.8 9.3 2.3 9.3 7.2 0 2-2 3.4-4.8 3.4-2.2 0-4-1-4.8-2.7M12 2.5v19"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 1.5M9.5 2.5h5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+</svg>
+
+<a class="skip" href="#demo"><span lang="zh-Hant">跳到內容</span><span lang="en">Skip to content</span></a>
+
+<header class="top">
+  <a class="brand" href="./"><img src="assets/icon-80.webp" alt="" width="36" height="36"> Novi</a>
+  <nav aria-label="Main">
+    <a class="wide" href="#features"><span lang="zh-Hant">功能</span><span lang="en">Features</span></a>
+    <a class="wide" href="#pro">Pro</a>
+    <a class="wide" href="#privacy"><span lang="zh-Hant">隱私</span><span lang="en">Privacy</span></a>
+    <a href="#support"><span lang="zh-Hant">支援</span><span lang="en">Support</span></a>
+    <div class="switch" role="group" aria-label="Language 語言" data-switch hidden>
+      <button type="button" data-set-lang="zh">中文</button>
+      <button type="button" data-set-lang="en">EN</button>
+    </div>
+  </nav>
 </header>
 
 <main>
 <section class="hero">
-  <img src="icon.png" alt="Novi icon" width="96" height="96">
-  <h1>說一句，就記好。</h1>
-  <p>作業、考試、行程、待辦、記帳，像傳訊息一樣打一句話，自動分類、到時提醒。記錄只存在你的手機。</p>
-  <p class="en">Say it once, it's saved. Homework, exams, events, to-dos and spending, sorted from one typed line. Your records stay on your phone.</p>
+  <div class="hero-text">
+    <h1>
+      <span lang="zh-Hant">打一句，<em>Novi 幫你分好</em></span>
+      <span lang="en">One line. <em>Everything sorted.</em></span>
+    </h1>
+    <p class="lead" lang="zh-Hant">作業、考試、行程、待辦、記帳，像傳訊息一樣打一句，到時候提醒你。</p>
+    <p class="lead" lang="en">Homework, exams, events, to-dos and spending. Type it like a text, and Novi reminds you when it matters.</p>
+    <a class="store" data-store aria-disabled="true">
+      <span class="soon" lang="zh-Hant">即將在 App Store 上架</span>
+      <span class="soon" lang="en">Coming soon to the App Store</span>
+      <span class="live" lang="zh-Hant">在 App Store 下載</span>
+      <span class="live" lang="en">Download on the App Store</span>
+    </a>
+    <p class="small" lang="zh-Hant">適用 iPhone。資料存在手機，不用帳號。</p>
+    <p class="small" lang="en">For iPhone. Stays on your phone, no account.</p>
+  </div>
+  <div class="hero-novi">
+    <div class="pop">
+      <p class="say" aria-hidden="true"><span lang="zh-Hant">嗨，我是 Novi！</span><span lang="en">Hi, I'm Novi!</span></p>
+      <img src="assets/novi-wave.webp" width="540" height="928" fetchpriority="high"
+           alt="Novi, a small blue robot with pink eyes, waving. Its chest screen says Hi!">
+    </div>
+  </div>
 </section>
 
-<section id="zh">
-  <h2>支援與常見問題</h2>
-
-  <h3>怎麼用？</h3>
-  <p>在「聊天」直接打字，不用加開頭：</p>
-  <ul>
-    <li>📚 <code>Essay due fri 3pm</code>、<code>化學報告 11/5</code></li>
-    <li>📝 <code>數學小考 下禮拜三</code></li>
-    <li>📅 <code>明天 3點 練球</code></li>
-    <li>✅ <code>記得買牛奶</code></li>
-    <li>💰 <code>午餐 120</code></li>
-  </ul>
-  <p>查詢：<code>今天有什麼</code>、<code>這週有什麼</code>、<code>本月支出</code>。完整說明在 App 的「設定 → 聊天怎麼打」。</p>
-
-  <h3>判斷錯類型怎麼辦？</h3>
-  <p>到該筆所在的列表點它，就能改類型、時間和備註。</p>
-
-  <h3>提醒什麼時候來？</h3>
-  <p>作業：截止前 1 天、前 2 小時。考試：前 3 天、前 1 天、前 1 小時。行程：前 1 小時和前 5 分鐘。每一種都能在「設定」改時間和次數。有日期的待辦：時間到。要先在「設定」開啟通知。</p>
-
-  <h3>資料會不會不見？</h3>
-  <p>資料存在手機本機；移除 App 會一併刪除。開啟 iCloud 裝置備份可以跟著備份。</p>
-
-  <h3>可以換語言嗎？</h3>
-  <p>可以。「設定 → 語言」可選跟隨系統、繁體中文、English、日本語或 한국어。</p>
-
-  <h3>聯絡</h3>
-  <p>問題與建議請來信 <a href="mailto:jerrytai8888@gmail.com">jerrytai8888@gmail.com</a>，通常會在幾天內回覆。</p>
+<section class="demo band" id="demo">
+  <div class="wrap demo-grid">
+    <div class="demo-copy">
+      <h2 lang="zh-Hant">不用選分類，不用填表單</h2>
+      <h2 lang="en">No categories to pick. No forms to fill.</h2>
+      <p lang="zh-Hant">像傳訊息給朋友一樣打一句，Novi 自己判斷這是作業、考試、行程、待辦還是記帳。中文、英文都看得懂，判斷錯了，點一下就能改。</p>
+      <p lang="en">Type one line the way you'd text a friend. Novi works out whether it's homework, an exam, an event, a to-do or spending. Understands English and Chinese. Guessed wrong? Tap to change it.</p>
+      <img class="demo-novi" src="assets/novi-listen.webp" width="313" height="560" loading="lazy" alt="" >
+    </div>
+    <div class="demo-panel">
+      <div class="demo-stage" data-demo>
+        <ol class="demo-list" lang="zh-Hant">
+          <li class="item">
+            <p class="bubble">明天 3點 練球</p>
+            <div class="saved"><img src="assets/novi-head.webp" width="40" height="34" alt="" loading="lazy">
+              <div class="card tone-event"><span class="tile"><svg><use href="#i-event"/></svg></span>
+                <div><p class="ct"><b>練球</b><span class="tag">行程</span></p><p>明天 15:00</p><p class="fine">提醒：1 小時前、5 分鐘前</p></div></div></div>
+          </li>
+          <li class="item">
+            <p class="bubble">數學小考 下禮拜三</p>
+            <div class="saved"><img src="assets/novi-head.webp" width="40" height="34" alt="" loading="lazy">
+              <div class="card tone-exam"><span class="tile"><svg><use href="#i-exam"/></svg></span>
+                <div><p class="ct"><b>數學小考</b><span class="tag">考試</span></p><p>下週三 09:00</p><p class="fine">提醒：3 天前、1 天前、1 小時前</p></div></div></div>
+          </li>
+          <li class="item">
+            <p class="bubble">午餐 120</p>
+            <div class="saved"><img src="assets/novi-head.webp" width="40" height="34" alt="" loading="lazy">
+              <div class="card tone-expense"><span class="tile"><svg><use href="#i-expense"/></svg></span>
+                <div><p class="ct"><b>120 元</b><span class="tag">記帳</span></p><p>餐飲　午餐</p></div></div></div>
+          </li>
+        </ol>
+        <ol class="demo-list" lang="en">
+          <li class="item">
+            <p class="bubble">tomorrow 3pm practice</p>
+            <div class="saved"><img src="assets/novi-head.webp" width="40" height="34" alt="" loading="lazy">
+              <div class="card tone-event"><span class="tile"><svg><use href="#i-event"/></svg></span>
+                <div><p class="ct"><b>practice</b><span class="tag">Event</span></p><p>Tomorrow 15:00</p><p class="fine">Reminders: 1 h before, 5 min before</p></div></div></div>
+          </li>
+          <li class="item">
+            <p class="bubble">Math quiz next wed</p>
+            <div class="saved"><img src="assets/novi-head.webp" width="40" height="34" alt="" loading="lazy">
+              <div class="card tone-exam"><span class="tile"><svg><use href="#i-exam"/></svg></span>
+                <div><p class="ct"><b>Math quiz</b><span class="tag">Exam</span></p><p>Next Wed 09:00</p><p class="fine">Reminders: 3 days, 1 day, 1 h before</p></div></div></div>
+          </li>
+          <li class="item">
+            <p class="bubble">lunch 12.5</p>
+            <div class="saved"><img src="assets/novi-head.webp" width="40" height="34" alt="" loading="lazy">
+              <div class="card tone-expense"><span class="tile"><svg><use href="#i-expense"/></svg></span>
+                <div><p class="ct"><b>$12.5</b><span class="tag">Spending</span></p><p>Food · lunch</p></div></div></div>
+          </li>
+        </ol>
+      </div>
+      <button class="demo-pause" type="button" data-demo-pause hidden></button>
+    </div>
+  </div>
 </section>
 
-<hr>
+<section class="band" id="features" aria-label="Features">
+  <div class="wrap feats">
 
-<section id="en" lang="en">
-  <h2>Support &amp; FAQ</h2>
+    <article class="feat tone-homework">
+      <div class="feat-text">
+        <p class="kicker"><svg><use href="#i-homework"/></svg><span lang="zh-Hant">課業</span><span lang="en">Study</span></p>
+        <h3 lang="zh-Hant">再也不會忘記截止日</h3>
+        <h3 lang="en">Never miss a deadline.</h3>
+        <p lang="zh-Hant">作業和考試放在一起，每一筆都有倒數。快到期會變紅色，逾期會提醒你。長按圓圈完成，會有彩帶。</p>
+        <p lang="en">Homework and exams in one list, each with a countdown. Turns red when it's close, flags what's overdue. Hold the circle to finish, with confetti.</p>
+      </div>
+      <div class="phone">
+        <img lang="zh-Hant" src="assets/shots/zh-study.webp" width="600" height="1304" loading="lazy" alt="Novi 課業頁：作業和考試在同一個列表，每筆標示還剩幾天。">
+        <img lang="en" src="assets/shots/en-study.webp" width="600" height="1304" loading="lazy" alt="Novi Study screen: homework and exams in one list, each showing the days left.">
+      </div>
+    </article>
 
-  <h3>How do I use it?</h3>
-  <p>Type in Chat, no command word needed:</p>
-  <ul>
-    <li>📚 <code>Essay due fri 3pm</code>, <code>Chem report 11/5</code></li>
-    <li>📝 <code>Math quiz next wed</code></li>
-    <li>📅 <code>tomorrow 3pm practice</code></li>
-    <li>✅ <code>remember to buy milk</code></li>
-    <li>💰 <code>lunch 12.5</code></li>
-  </ul>
-  <p>Ask: <code>today</code>, <code>this week</code>, <code>this month spending</code>. The full list is in the App under Settings → What to type.</p>
+    <article class="feat tone-event flip">
+      <div class="feat-text">
+        <p class="kicker"><svg><use href="#i-event"/></svg><span lang="zh-Hant">行程與待辦</span><span lang="en">Plans &amp; to-dos</span></p>
+        <h3 lang="zh-Hant">整個月，一眼看完</h3>
+        <h3 lang="en">Your whole month, at a glance.</h3>
+        <p lang="zh-Hant">月曆上每一天底下直接顯示那天有什麼。待辦可以不寫日期，想到就記。</p>
+        <p lang="en">The calendar shows what's on each day, right under the date. To-dos don't need a date; jot them down as they come.</p>
+      </div>
+      <div class="phone">
+        <img lang="zh-Hant" src="assets/shots/zh-plans.webp" width="600" height="1304" loading="lazy" alt="Novi 行程頁：週列和月曆，日期底下寫著當天的行程。">
+        <img lang="en" src="assets/shots/en-plans.webp" width="600" height="1304" loading="lazy" alt="Novi Plans screen: a week strip and a month calendar with plans under the dates.">
+      </div>
+    </article>
 
-  <h3>It picked the wrong type</h3>
-  <p>Tap the item in its list to change the type, time and notes.</p>
+    <article class="feat tone-expense">
+      <div class="feat-text">
+        <p class="kicker"><svg><use href="#i-expense"/></svg><span lang="zh-Hant">記帳</span><span lang="en">Spending</span></p>
+        <h3 lang="zh-Hant">錢花去哪，一看就懂</h3>
+        <h3 lang="en">Know where it all went.</h3>
+        <p lang="zh-Hant">「午餐 120」自動歸到餐飲。圓餅圖看這個月花在哪，可以切換月份看以前的紀錄。</p>
+        <p lang="en">"lunch 12.5" lands in Food on its own. A pie chart shows where the month went; flip back to earlier months any time.</p>
+      </div>
+      <div class="phone">
+        <img lang="zh-Hant" src="assets/shots/zh-spending.webp" width="600" height="1304" loading="lazy" alt="Novi 記帳頁：本月支出總額和分類圓餅圖。">
+        <img lang="en" src="assets/shots/en-spending.webp" width="600" height="1304" loading="lazy" alt="Novi Spending screen: the month's total and a pie chart by category.">
+      </div>
+    </article>
 
-  <h3>When do reminders arrive?</h3>
-  <p>Homework: 1 day and 2 hours before. Exams: 3 days, 1 day and 1 hour before. Events: 1 hour and 5 minutes before. Each kind can be changed in Settings. Dated to-dos: at the time. Turn on notifications in Settings first.</p>
+    <article class="feat tone-todo flip">
+      <div class="feat-text">
+        <p class="kicker"><svg><use href="#i-timer"/></svg><span lang="zh-Hant">讀書計時</span><span lang="en">Focus timer</span></p>
+        <h3 lang="zh-Hant">想專心多久，你決定</h3>
+        <h3 lang="en">Focus your way.</h3>
+        <p lang="zh-Hant">15、25、45 分鐘，或自訂 1 到 180 分鐘。Novi 陪你專心，完成拿一顆糖果。</p>
+        <p lang="en">15, 25 or 45 minutes, or any length from 1 to 180. Finish a session, earn a candy.</p>
+      </div>
+      <div class="phone">
+        <img lang="zh-Hant" src="assets/shots/zh-focus.webp" width="600" height="1304" loading="lazy" alt="Novi 讀書計時頁：選好時間，Novi 在倒數圓圈裡陪你。">
+        <img lang="en" src="assets/shots/en-focus.webp" width="600" height="1304" loading="lazy" alt="Novi Focus timer screen: pick a length, and Novi sits inside the countdown ring.">
+      </div>
+    </article>
 
-  <h3>Will I lose my data?</h3>
-  <p>Data lives on your phone; deleting the App deletes it. iCloud device backup includes it.</p>
+  </div>
+</section>
 
-  <h3>Can I change the language?</h3>
-  <p>Yes: Settings → Language, choose Follow system, 繁體中文, English, 日本語 or 한국어.</p>
+<section class="band tint" id="wardrobe">
+  <div class="wrap">
+    <div class="closet">
+      <div>
+        <h2 lang="zh-Hant">25+ 套造型，<br>換成你喜歡的樣子</h2>
+        <h2 lang="en">25+ outfits. Dress Novi your way.</h2>
+        <p lang="zh-Hant">多開幾天就多一件衣服，萬聖節還有限定造型。它會在輸入框上走來走去，點它會跟你打招呼。</p>
+        <p lang="en">Open the app on more days and the wardrobe grows; Halloween brings its own outfits. It strolls along the input bar and waves when tapped.</p>
+      </div>
+      <figure class="fitting">
+        <img data-fitting src="assets/outfits/hoodie.webp" width="336" height="480" loading="lazy" alt="Novi wearing the campus hoodie">
+        <figcaption data-fitting-name><span lang="zh-Hant">校園帽T</span><span lang="en">Campus hoodie</span></figcaption>
+      </figure>
+    </div>
+    <ul class="rack" data-rack aria-label="Outfits">
+      <li><button type="button" data-outfit="hoodie" aria-pressed="true"><img src="assets/outfits/hoodie.webp" width="336" height="480" loading="lazy" alt=""><span lang="zh-Hant">校園帽T</span><span lang="en">Campus hoodie</span></button></li>
+      <li><button type="button" data-outfit="cardigan" aria-pressed="false"><img src="assets/outfits/cardigan.webp" width="270" height="480" loading="lazy" alt=""><span lang="zh-Hant">圖書館開衫</span><span lang="en">Library cardigan</span></button></li>
+      <li><button type="button" data-outfit="varsity" aria-pressed="false"><img src="assets/outfits/varsity.webp" width="291" height="480" loading="lazy" alt=""><span lang="zh-Hant">放學去運動</span><span lang="en">Varsity jacket</span></button></li>
+      <li><button type="button" data-outfit="raincoat" aria-pressed="false"><img src="assets/outfits/raincoat.webp" width="323" height="480" loading="lazy" alt=""><span lang="zh-Hant">雨天也出門</span><span lang="en">Rainy-day coat</span></button></li>
+      <li><button type="button" data-outfit="denim" aria-pressed="false"><img src="assets/outfits/denim.webp" width="266" height="480" loading="lazy" alt=""><span lang="zh-Hant">背包上學去</span><span lang="en">Off to school</span></button></li>
+      <li><button type="button" data-outfit="pajamas" aria-pressed="false"><img src="assets/outfits/pajamas.webp" width="348" height="480" loading="lazy" alt=""><span lang="zh-Hant">月亮睡衣</span><span lang="en">Moon pajamas</span></button></li>
+      <li><button type="button" data-outfit="scarf" aria-pressed="false"><img src="assets/outfits/scarf.webp" width="346" height="480" loading="lazy" alt=""><span lang="zh-Hant">暖暖圍巾</span><span lang="en">Warm scarf</span></button></li>
+      <li><button type="button" data-outfit="chef" aria-pressed="false"><img src="assets/outfits/chef.webp" width="333" height="480" loading="lazy" alt=""><span lang="zh-Hant">小小料理家</span><span lang="en">Little cook</span></button></li>
+      <li><button type="button" data-outfit="garden" aria-pressed="false"><img src="assets/outfits/garden.webp" width="384" height="474" loading="lazy" alt=""><span lang="zh-Hant">陽台園丁</span><span lang="en">Gardener</span></button></li>
+      <li><button type="button" data-outfit="sailor" aria-pressed="false"><img src="assets/outfits/sailor.webp" width="319" height="474" loading="lazy" alt=""><span lang="zh-Hant">海邊散散步</span><span lang="en">Sailor day</span></button></li>
+      <li><button type="button" data-outfit="cafe" aria-pressed="false"><img src="assets/outfits/cafe.webp" width="377" height="471" loading="lazy" alt=""><span lang="zh-Hant">午後咖啡館</span><span lang="en">Barista</span></button></li>
+      <li><button type="button" data-outfit="dungarees" aria-pressed="false"><img src="assets/outfits/dungarees.webp" width="262" height="480" loading="lazy" alt=""><span lang="zh-Hant">週末吊帶褲</span><span lang="en">Dungarees</span></button></li>
+      <li><button type="button" data-outfit="witch" aria-pressed="false"><img src="assets/outfits/witch.webp" width="394" height="480" loading="lazy" alt=""><span lang="zh-Hant">月亮小巫師</span><span lang="en">Moon witch</span></button></li>
+      <li><button type="button" data-outfit="pumpkin" aria-pressed="false"><img src="assets/outfits/pumpkin.webp" width="356" height="480" loading="lazy" alt=""><span lang="zh-Hant">南瓜討糖隊</span><span lang="en">Pumpkin kid</span></button></li>
+      <li><button type="button" data-outfit="cat" aria-pressed="false"><img src="assets/outfits/cat.webp" width="322" height="473" loading="lazy" alt=""><span lang="zh-Hant">午夜小黑貓</span><span lang="en">Midnight cat</span></button></li>
+      <li><button type="button" data-outfit="vampire" aria-pressed="false"><img src="assets/outfits/vampire.webp" width="388" height="480" loading="lazy" alt=""><span lang="zh-Hant">害羞吸血鬼</span><span lang="en">Vampire</span></button></li>
+      <li><button type="button" data-outfit="skeleton" aria-pressed="false"><img src="assets/outfits/skeleton.webp" width="315" height="480" loading="lazy" alt=""><span lang="zh-Hant">骨頭小搗蛋</span><span lang="en">Little skeleton</span></button></li>
+      <li><button type="button" data-outfit="pirate" aria-pressed="false"><img src="assets/outfits/pirate.webp" width="357" height="480" loading="lazy" alt=""><span lang="zh-Hant">幽靈船長</span><span lang="en">Ghost captain</span></button></li>
+      <li><button type="button" data-outfit="ghost" aria-pressed="false"><img src="assets/outfits/ghost.webp" width="363" height="480" loading="lazy" alt=""><span lang="zh-Hant">白布小幽靈</span><span lang="en">Sheet ghost</span></button></li>
+      <li><button type="button" data-outfit="mummy" aria-pressed="false"><img src="assets/outfits/mummy.webp" width="290" height="478" loading="lazy" alt=""><span lang="zh-Hant">繃帶小迷糊</span><span lang="en">Sleepy mummy</span></button></li>
+    </ul>
+  </div>
+</section>
 
-  <h3>Contact</h3>
-  <p>Questions and suggestions: <a href="mailto:jerrytai8888@gmail.com">jerrytai8888@gmail.com</a>. Replies usually within a few days.</p>
+<section class="band" id="pro">
+  <div class="wrap narrow">
+    <p class="next"><span lang="zh-Hant">下一次更新推出</span><span lang="en">Coming in the next update</span></p>
+    <h2 lang="zh-Hant">免費版與 Pro</h2>
+    <h2 lang="en">Free and Pro</h2>
+    <p lang="zh-Hant">Novi 1.0 是免費的。Pro 會在下一次更新推出，以下是目前的規劃，推出前可能調整。</p>
+    <p lang="en">Novi 1.0 is free. Pro comes with the next update. This is the current plan and may change before then.</p>
+    <div class="plan">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only" lang="zh-Hant">功能</span><span class="sr-only" lang="en">Feature</span></th>
+            <th scope="col"><span lang="zh-Hant">免費</span><span lang="en">Free</span></th>
+            <th scope="col" class="pro">Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row"><span lang="zh-Hant">打一句自動分類</span><span lang="en">One line, sorted for you</span></th><td><svg role="img" aria-label="✓"><use href="#i-check"/></svg></td><td><svg role="img" aria-label="✓"><use href="#i-check"/></svg></td></tr>
+          <tr><th scope="row"><span lang="zh-Hant">提醒</span><span lang="en">Reminders</span></th><td><svg role="img" aria-label="✓"><use href="#i-check"/></svg></td><td><svg role="img" aria-label="✓"><use href="#i-check"/></svg></td></tr>
+          <tr><th scope="row"><span lang="zh-Hant">課業、月曆、待辦、記帳</span><span lang="en">Study, calendar, to-dos, spending</span></th><td><svg role="img" aria-label="✓"><use href="#i-check"/></svg></td><td><svg role="img" aria-label="✓"><use href="#i-check"/></svg></td></tr>
+          <tr><th scope="row"><span lang="zh-Hant">新聞</span><span lang="en">News</span></th><td><svg role="img" aria-label="✓"><use href="#i-check"/></svg></td><td><svg role="img" aria-label="✓"><use href="#i-check"/></svg></td></tr>
+          <tr><th scope="row"><span lang="zh-Hant">衣櫥</span><span lang="en">Wardrobe</span></th><td><span lang="zh-Hant">多開幾天解鎖</span><span lang="en">Unlocks as you use Novi</span></td><td><span lang="zh-Hant">立刻全開</span><span lang="en">All open right away</span></td></tr>
+          <tr><th scope="row"><span lang="zh-Hant">日記簿，可用 Face ID 上鎖</span><span lang="en">Diary with Face ID lock</span></th><td class="none">—<span class="sr-only" lang="zh-Hant">不含</span><span class="sr-only" lang="en">Not included</span></td><td><svg role="img" aria-label="✓"><use href="#i-check"/></svg></td></tr>
+          <tr><th scope="row"><span lang="zh-Hant">動態島陪讀</span><span lang="en">Focus timer on the Dynamic Island</span></th><td class="none">—<span class="sr-only" lang="zh-Hant">不含</span><span class="sr-only" lang="en">Not included</span></td><td><svg role="img" aria-label="✓"><use href="#i-check"/></svg></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band promise" id="privacy">
+  <div class="wrap narrow promise-grid">
+    <img src="assets/outfits/pajamas.webp" width="348" height="480" loading="lazy" alt="">
+    <div>
+      <h2 lang="zh-Hant">你的資料只在你手機</h2>
+      <h2 lang="en">Your data stays on your phone</h2>
+      <ul class="trio">
+        <li><span lang="zh-Hant">沒有帳號</span><span lang="en">No account</span></li>
+        <li><span lang="zh-Hant">沒有伺服器</span><span lang="en">No server</span></li>
+        <li><span lang="zh-Hant">沒有廣告</span><span lang="en">No ads</span></li>
+      </ul>
+      <p lang="zh-Hant">只有新聞會連到新聞網站，天氣簡報會查詢預報，其餘記錄都在手機裡。刪掉 app，資料就一起刪掉。</p>
+      <p lang="en">News reads the publishers' sites and weather briefs look up a forecast; your records stay on the phone. Delete the app and the data goes with it.</p>
+      <p><a href="privacy.html"><span lang="zh-Hant">閱讀完整隱私權政策</span><span lang="en">Read the full privacy policy</span></a></p>
+    </div>
+  </div>
+</section>
+
+<section class="band support" id="support">
+  <div class="wrap narrow">
+
+    <section id="zh" lang="zh-Hant">
+      <h2>支援與常見問題</h2>
+
+      <h3>怎麼用？</h3>
+      <p>在「聊天」直接打字，不用加開頭：</p>
+      <ul class="howto">
+        <li><span class="tag tone-homework">作業</span><code>Essay due fri 3pm</code>、<code>化學報告 11/5</code></li>
+        <li><span class="tag tone-exam">考試</span><code>數學小考 下禮拜三</code></li>
+        <li><span class="tag tone-event">行程</span><code>明天 3點 練球</code></li>
+        <li><span class="tag tone-todo">待辦</span><code>記得買牛奶</code></li>
+        <li><span class="tag tone-expense">記帳</span><code>午餐 120</code></li>
+      </ul>
+      <p>查詢：<code>今天有什麼</code>、<code>這週有什麼</code>、<code>本月支出</code>。完整說明在 App 的「設定 → 聊天怎麼打」。</p>
+
+      <h3>判斷錯類型怎麼辦？</h3>
+      <p>到該筆所在的列表點它，就能改類型、時間和備註。</p>
+
+      <h3>提醒什麼時候來？</h3>
+      <p>作業：截止前 1 天、前 2 小時。考試：前 3 天、前 1 天、前 1 小時。行程：前 1 小時和前 5 分鐘。每一種都能在「設定」改時間和次數。有日期的待辦：時間到。要先在「設定」開啟通知。</p>
+
+      <h3>資料會不會不見？</h3>
+      <p>資料存在手機本機；移除 App 會一併刪除。開啟 iCloud 裝置備份可以跟著備份。</p>
+
+      <h3>可以換語言嗎？</h3>
+      <p>可以。「設定 → 語言」可選跟隨系統、繁體中文、English、日本語或 한국어。</p>
+
+      <h3>聯絡</h3>
+      <p>問題與建議請來信 <a href="mailto:jerrytai8888@gmail.com">jerrytai8888@gmail.com</a>，通常會在幾天內回覆。</p>
+    </section>
+
+    <section id="en" lang="en">
+      <h2>Support &amp; FAQ</h2>
+
+      <h3>How do I use it?</h3>
+      <p>Type in Chat, no command word needed:</p>
+      <ul class="howto">
+        <li><span class="tag tone-homework">Homework</span><code>Essay due fri 3pm</code>, <code>Chem report 11/5</code></li>
+        <li><span class="tag tone-exam">Exam</span><code>Math quiz next wed</code></li>
+        <li><span class="tag tone-event">Event</span><code>tomorrow 3pm practice</code></li>
+        <li><span class="tag tone-todo">To-do</span><code>remember to buy milk</code></li>
+        <li><span class="tag tone-expense">Spending</span><code>lunch 12.5</code></li>
+      </ul>
+      <p>Ask: <code>today</code>, <code>this week</code>, <code>this month spending</code>. The full list is in the App under Settings → What to type.</p>
+
+      <h3>It picked the wrong type</h3>
+      <p>Tap the item in its list to change the type, time and notes.</p>
+
+      <h3>When do reminders arrive?</h3>
+      <p>Homework: 1 day and 2 hours before. Exams: 3 days, 1 day and 1 hour before. Events: 1 hour and 5 minutes before. Each kind can be changed in Settings. Dated to-dos: at the time. Turn on notifications in Settings first.</p>
+
+      <h3>Will I lose my data?</h3>
+      <p>Data lives on your phone; deleting the App deletes it. iCloud device backup includes it.</p>
+
+      <h3>Can I change the language?</h3>
+      <p>Yes: Settings → Language, choose Follow system, 繁體中文, English, 日本語 or 한국어.</p>
+
+      <h3>Contact</h3>
+      <p>Questions and suggestions: <a href="mailto:jerrytai8888@gmail.com">jerrytai8888@gmail.com</a>. Replies usually within a few days.</p>
+    </section>
+
+  </div>
 </section>
 </main>
 
-<footer>© 2026 Jerry Tai · <a href="privacy.html">隱私權政策 Privacy Policy</a></footer>
+<footer>
+  <img src="assets/icon-80.webp" alt="" width="48" height="48" loading="lazy">
+  <a class="store" data-store aria-disabled="true">
+    <span class="soon" lang="zh-Hant">即將在 App Store 上架</span>
+    <span class="soon" lang="en">Coming soon to the App Store</span>
+    <span class="live" lang="zh-Hant">在 App Store 下載</span>
+    <span class="live" lang="en">Download on the App Store</span>
+  </a>
+  <p class="langs">繁體中文 · English · 日本語 · 한국어</p>
+  <p>© 2026 Jerry Tai · <a href="privacy.html"><span lang="zh-Hant">隱私權政策</span><span lang="en">Privacy Policy</span></a> · <a href="#support"><span lang="zh-Hant">支援</span><span lang="en">Support</span></a></p>
+</footer>
 </body>
 </html>
