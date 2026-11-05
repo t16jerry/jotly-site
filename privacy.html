@@ -29,8 +29,11 @@
   <p>本 App 使用 iOS 的「本機通知」提醒作業截止、考試與行程。提醒是在你的裝置上排程的，不會經過任何伺服器。你可以隨時在 iOS 設定中關閉通知。</p>
 
   <h2>網路連線</h2>
-  <p>只有「新聞」頁會連線到新聞媒體的公開 RSS（中央社、自由時報、鉅亨網、BBC 等）讀取標題，點開文章時由 app 內的 Safari 瀏覽該媒體網站；這些連線由你的裝置直接發出，本 App 不會在中間經手。</p>
+  <p>「新聞」頁和附有新聞頭條的自訂簡報，會連線到新聞媒體的公開 RSS（法廣、中央社、鉅亨網、BBC 中文等）讀取標題；簡報的頭條可能由 iOS 在背景先抓好。點開文章時由 app 內的 Safari 瀏覽該媒體網站。這些連線由你的裝置直接發出，本 App 不會在中間經手，也不會傳送你的任何記錄。</p>
   <p>備份檔和「記錯了」紀錄都存在手機上，只有你自己用分享功能傳出去時才會離開手機。</p>
+  <h2>手機內建 AI</h2>
+  <p>在支援 Apple Intelligence 的 iPhone 上，Novi 會用 Apple 內建在手機裡的語言模型理解比較難的句子、陪你聊天，聊天時也會參考你接下來幾天的行程。這些處理全部在你的手機上完成，句子和行程不會離開手機。你可以在「一般設定 → AI」關閉。</p>
+
   <h2>天氣與位置</h2>
   <p>只有在你於「自訂簡報」打開天氣時，App 才會要求定位，並把四捨五入到約 1 公里的座標傳給 Apple 的 WeatherKit 查預報。這個請求不含姓名、帳號或你的記錄。App 只在手機上保留預報和地名，不保存座標。不開天氣就不會有這個連線。</p>
 
@@ -65,8 +68,11 @@
   <p>The App uses iOS local notifications to remind you of due dates, exams and events. Reminders are scheduled on your device and never pass through a server. You can turn them off at any time in iOS Settings.</p>
 
   <h2>Network</h2>
-  <p>Only the News page connects to the publishers' public RSS feeds (BBC, CBC, Taipei Times, Focus Taiwan, CNA and others) to read headlines, and opens articles in an in-app Safari view on the publisher's own site. Those connections go directly from your device; the App does not relay them.</p>
+  <p>The News page, and custom briefs with headlines, connect to the publishers' public RSS feeds (BBC, CBC, CNA, Focus Taiwan, RFI and others) to read headlines; iOS may fetch a brief's headlines in the background ahead of time. Articles open in an in-app Safari view on the publisher's own site. Those connections go directly from your device; the App does not relay them and sends none of your records.</p>
   <p>Backup files and the wrong-sentence log stay on your phone. They leave it only when you share them yourself.</p>
+  <h2>On-device AI</h2>
+  <p>On iPhones with Apple Intelligence, Novi uses Apple's language model built into the phone to read harder sentences and to chat, looking at your plans for the next few days while it does. All of this runs on your phone; your sentences and plans never leave it. You can turn it off in General Settings → AI.</p>
+
   <h2>Weather and location</h2>
   <p>Only if you turn on weather in a custom brief, the App asks for your location and sends coordinates rounded to about one kilometre to Apple's WeatherKit for the forecast. That request contains no name, account or records of yours. The App keeps only the forecast and place name on your phone, not the coordinates. Without weather turned on, this connection never happens.</p>
 
