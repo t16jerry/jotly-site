@@ -37,6 +37,7 @@
   <h2>雲端 AI（選用，預設關閉）</h2>
   <p>在「一般設定 → AI」打開「雲端 AI」並同意說明後，當手機內建 AI 無法使用或看不懂時，Novi 會把<strong>你剛輸入的那一句話</strong>，以及<strong>未完成事項的標題</strong>（用來對應「改時間、完成、刪除」），透過 Novi 架在 Cloudflare 上的伺服器，交給 Anthropic 的 Claude 判斷或回話。聊天時也會附上最近幾則對話、你選的語氣與暱稱。</p>
   <p>Novi Pro 訂閱方案另有「AI 秘書」，預設關閉。打開並同意後，聊天、排計畫和寫自訂簡報的建議時，還會附上接下來 7 天的作業、考試、行程標題與時間，以及今明兩天的課表。為了確認訂閱有效，App 會附上 Apple 簽署的訂閱證明，伺服器只當下驗證、不保存。</p>
+  <p>AI 秘書可以記住你在聊天中提到、之後還用得到的事（例如「數學是最弱的科目」，或你說「記住：…」的內容），最多 30 則。這些記憶只存在你的手機裡，聊天和寫簡報時才一起送出；在「設定 → 秘書記得的事」可以逐則刪除或全部清除。</p>
   <p>Novi 的伺服器不保存這些內容，也不記錄在日誌中；為了計算每天的免費次數，只會用一個隨機產生、與你身分無關的安裝代碼計數，兩天後自動刪除。Anthropic 依其商業條款處理這些請求，不會拿來訓練模型，並可能為了防止濫用保留最多 30 天。你隨時可以關掉雲端 AI 或 AI 秘書，之後就不會再傳送。</p>
 
   <h2>天氣與位置</h2>
@@ -81,6 +82,7 @@
   <h2>Cloud AI (optional, off by default)</h2>
   <p>If you turn on Cloud AI in General Settings → AI and agree to it, then when the built-in AI is unavailable or unsure, Novi sends <strong>the sentence you just typed</strong> and <strong>the titles of your open items</strong> (to match "move", "done" and "delete") through Novi's server on Cloudflare to Anthropic's Claude, which reads it or replies. Chat requests also carry the last few messages and the tone and nickname you chose.</p>
   <p>The Novi Pro subscription adds the "AI secretary", off by default. If you turn it on and agree, requests to chat, plan your week or write advice for a custom brief also carry the titles and times of your homework, exams and events for the next 7 days, plus today's and tomorrow's classes. To confirm the subscription is active, the App includes Apple's signed proof of it, which the server checks on the spot and does not keep.</p>
+  <p>The AI secretary can remember things you mention in chat that will matter later (such as "math is my weakest subject", or anything you say after "remember:"), up to 30 items. These are stored only on your iPhone and sent along only with chat and brief requests. Delete them one by one or all at once in Settings → What the Secretary Remembers.</p>
   <p>Novi's server does not store this content or write it to its logs. To count the day's free uses it keeps only a random install ID that is not linked to you, deleted after two days. Anthropic handles these requests under its commercial terms, does not use them to train models, and may keep them for up to 30 days to prevent abuse. Turn off Cloud AI or the AI secretary at any time and nothing more is sent.</p>
 
   <h2>Weather and location</h2>
