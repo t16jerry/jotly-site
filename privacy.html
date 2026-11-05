@@ -36,8 +36,8 @@
 
   <h2>雲端 AI（選用，預設關閉）</h2>
   <p>在「一般設定 → AI」打開「雲端 AI」並同意說明後，當手機內建 AI 無法使用或看不懂時，Novi 會把<strong>你剛輸入的那一句話</strong>，以及<strong>未完成事項的標題</strong>（用來對應「改時間、完成、刪除」），透過 Novi 架在 Cloudflare 上的伺服器，交給 Anthropic 的 Claude 判斷或回話。聊天時也會附上最近幾則對話、你選的語氣與暱稱。</p>
-  <p>另有一個獨立的開關「雲端 AI 也參考我的行程」，預設關閉。打開並同意後，聊天時還會附上接下來 7 天的作業、考試、行程標題與時間，以及今明兩天的課表。</p>
-  <p>Novi 的伺服器不保存這些內容，也不記錄在日誌中；為了計算每天的免費次數，只會用一個隨機產生、與你身分無關的安裝代碼計數，兩天後自動刪除。Anthropic 依其商業條款處理這些請求，不會拿來訓練模型，並可能為了防止濫用保留最多 30 天。你隨時可以關掉這兩個開關，之後就不會再傳送。</p>
+  <p>Novi Pro 另有「AI 秘書」，預設關閉。打開並同意後，聊天、排計畫和寫自訂簡報的建議時，還會附上接下來 7 天的作業、考試、行程標題與時間，以及今明兩天的課表。為了確認 Pro 身分，App 會附上 Apple 簽署的購買證明，伺服器只當下驗證、不保存。</p>
+  <p>Novi 的伺服器不保存這些內容，也不記錄在日誌中；為了計算每天的免費次數，只會用一個隨機產生、與你身分無關的安裝代碼計數，兩天後自動刪除。Anthropic 依其商業條款處理這些請求，不會拿來訓練模型，並可能為了防止濫用保留最多 30 天。你隨時可以關掉雲端 AI 或 AI 秘書，之後就不會再傳送。</p>
 
   <h2>天氣與位置</h2>
   <p>只有在你於「自訂簡報」打開天氣時，App 才會要求定位，並把四捨五入到約 1 公里的座標傳給 Apple 的 WeatherKit 查預報。這個請求不含姓名、帳號或你的記錄。App 只在手機上保留預報和地名，不保存座標。不開天氣就不會有這個連線。</p>
@@ -80,8 +80,8 @@
 
   <h2>Cloud AI (optional, off by default)</h2>
   <p>If you turn on Cloud AI in General Settings → AI and agree to it, then when the built-in AI is unavailable or unsure, Novi sends <strong>the sentence you just typed</strong> and <strong>the titles of your open items</strong> (to match "move", "done" and "delete") through Novi's server on Cloudflare to Anthropic's Claude, which reads it or replies. Chat requests also carry the last few messages and the tone and nickname you chose.</p>
-  <p>A separate switch, "Cloud AI may see my plan", is off by default. If you turn it on and agree, chat requests also carry the titles and times of your homework, exams and events for the next 7 days, plus today's and tomorrow's classes.</p>
-  <p>Novi's server does not store this content or write it to its logs. To count the day's free uses it keeps only a random install ID that is not linked to you, deleted after two days. Anthropic handles these requests under its commercial terms, does not use them to train models, and may keep them for up to 30 days to prevent abuse. Turn either switch off at any time and nothing more is sent.</p>
+  <p>Novi Pro adds the "AI secretary", off by default. If you turn it on and agree, requests to chat, plan your week or write advice for a custom brief also carry the titles and times of your homework, exams and events for the next 7 days, plus today's and tomorrow's classes. To confirm Pro, the App includes Apple's signed proof of purchase, which the server checks on the spot and does not keep.</p>
+  <p>Novi's server does not store this content or write it to its logs. To count the day's free uses it keeps only a random install ID that is not linked to you, deleted after two days. Anthropic handles these requests under its commercial terms, does not use them to train models, and may keep them for up to 30 days to prevent abuse. Turn off Cloud AI or the AI secretary at any time and nothing more is sent.</p>
 
   <h2>Weather and location</h2>
   <p>Only if you turn on weather in a custom brief, the App asks for your location and sends coordinates rounded to about one kilometre to Apple's WeatherKit for the forecast. That request contains no name, account or records of yours. The App keeps only the forecast and place name on your phone, not the coordinates. Without weather turned on, this connection never happens.</p>
