@@ -15,12 +15,12 @@
 <main>
 <section id="zh">
   <h1>隱私權政策</h1>
-  <p class="meta">生效日期：2026 年 10 月 30 日</p>
+  <p class="meta">生效日期：2026 年 11 月 9 日</p>
 
-  <p>「Novi」（以下稱本 App）是一款以離線為主的個人記事工具。我們的原則很簡單：<strong>你的記錄只存在你的手機上，我們看不到、也不會收集。</strong>唯一的例外是你自己打開的「雲端 AI」，下面會寫清楚傳了什麼、傳給誰。</p>
+  <p>「Novi」（以下稱本 App）是一款以離線為主的個人記事工具。我們的原則很簡單：<strong>你的記錄只存在你的手機上，我們看不到、也不會收集。</strong>唯一的例外是你自己打開的「AI 秘書」（Novi Pro 訂閱的功能），下面會寫清楚傳了什麼、傳給誰。</p>
 
   <h2>我們收集什麼資料</h2>
-  <p><strong>開發者不保存你的任何資料。</strong>本 App 沒有帳號、沒有分析工具、沒有廣告，也沒有任何第三方 SDK。你輸入的作業、考試、行程、待辦、記帳與聊天訊息，全部只儲存在你裝置本機的資料庫中。只有在你打開「雲端 AI」時，才會有資料經過我們的伺服器（見下方「雲端 AI」）。</p>
+  <p><strong>開發者不保存你的任何資料。</strong>本 App 沒有帳號、沒有分析工具、沒有廣告，也沒有任何第三方 SDK。你輸入的作業、考試、行程、待辦、記帳與聊天訊息，全部只儲存在你裝置本機的資料庫中。只有在你打開「AI 秘書」時，才會有資料經過我們的伺服器（見下方「AI 秘書」）。</p>
 
   <h2>資料儲存在哪裡</h2>
   <p>所有資料儲存在你的 iPhone 上，由 iOS 的沙盒保護。如果你有開啟 iCloud 裝置備份，這些資料會跟著 iOS 備份一起備份到你自己的 iCloud 帳號；我們無法存取該備份。</p>
@@ -34,11 +34,11 @@
   <h2>手機內建 AI</h2>
   <p>在支援 Apple Intelligence 的 iPhone 上，Novi 會用 Apple 內建在手機裡的語言模型理解比較難的句子、陪你聊天，聊天時也會參考你接下來幾天的行程。這些處理全部在你的手機上完成，句子和行程不會離開手機。你可以在「一般設定 → AI」關閉。</p>
 
-  <h2>雲端 AI（選用，預設關閉）</h2>
-  <p>在「一般設定 → AI」打開「雲端 AI」並同意說明後，當手機內建 AI 無法使用或看不懂時，Novi 會把<strong>你剛輸入的那一句話</strong>，以及<strong>未完成事項的標題</strong>（用來對應「改時間、完成、刪除」），透過 Novi 架在 Cloudflare 上的伺服器，交給 Anthropic 的 Claude 判斷或回話。聊天時也會附上最近幾則對話、你選的語氣與暱稱。</p>
-  <p>Novi Pro 訂閱方案另有「AI 秘書」，預設關閉。打開並同意後，聊天、排計畫和寫自訂簡報的建議時，還會附上接下來 7 天的作業、考試、行程標題與時間，以及今明兩天的課表。為了確認訂閱有效，App 會附上 Apple 簽署的訂閱證明，伺服器只當下驗證、不保存。</p>
+  <h2>AI 秘書（雲端，訂閱才有，預設關閉）</h2>
+  <p>AI 秘書是 Novi Pro 訂閱方案的功能，預設關閉；沒有訂閱或沒有打開時，Novi 不會把任何內容傳到雲端。在「一般設定 → AI」打開並同意說明後，Novi 會把<strong>你剛輸入的那一句話</strong>、<strong>未完成事項的標題</strong>（用來對應「改時間、完成、刪除」）、最近幾則對話、你選的語氣與暱稱，以及<strong>接下來 7 天的作業、考試、行程標題與時間</strong>和今明兩天的課表，透過 Novi 架在 Cloudflare 上的伺服器，交給 Anthropic 的 Claude 判斷、回話、排計畫或寫自訂簡報的建議。</p>
+  <p>為了確認訂閱有效，App 會附上 Apple 簽署的訂閱證明，伺服器只當下驗證、不保存。為了確認請求來自真正的 Novi，App 使用 Apple 的 App Attest，伺服器會保存這次安裝的公開金鑰，裡面沒有任何個人資料。</p>
   <p>AI 秘書可以記住你在聊天中提到、之後還用得到的事（例如「數學是最弱的科目」，或你說「記住：…」的內容），最多 30 則。這些記憶只存在你的手機裡，聊天和寫簡報時才一起送出；在「設定 → 秘書記得的事」可以逐則刪除或全部清除。</p>
-  <p>Novi 的伺服器不保存這些內容，也不記錄在日誌中；為了計算每天的免費次數，只會用一個隨機產生、與你身分無關的安裝代碼計數，兩天後自動刪除。Anthropic 依其商業條款處理這些請求，不會拿來訓練模型，並可能為了防止濫用保留最多 30 天。你隨時可以關掉雲端 AI 或 AI 秘書，之後就不會再傳送。</p>
+  <p>Novi 的伺服器不保存這些內容，也不記錄在日誌中；為了計算每天的使用次數上限，只會用一個隨機產生、與你身分無關的安裝代碼計數，兩天後自動刪除。Anthropic 依其商業條款處理這些請求，不會拿來訓練模型，並可能為了防止濫用保留最多 30 天。你隨時可以關掉 AI 秘書或取消訂閱，之後就不會再傳送。</p>
 
   <h2>天氣與位置</h2>
   <p>只有在你於「自訂簡報」打開天氣時，App 才會要求定位，並把四捨五入到約 1 公里的座標傳給 Apple 的 WeatherKit 查預報。這個請求不含姓名、帳號或你的記錄。App 只在手機上保留預報和地名，不保存座標。不開天氣就不會有這個連線。</p>
@@ -47,7 +47,7 @@
   <p>在 App 內可以逐筆刪除。要刪除全部資料，直接從 iPhone 移除本 App 即可，所有資料會一併刪除。</p>
 
   <h2>兒童隱私</h2>
-  <p>本 App 不保存任何人的個人資料，包括 13 歲以下的兒童。雲端 AI 預設關閉，需要使用者自己打開並同意。</p>
+  <p>本 App 不保存任何人的個人資料，包括 13 歲以下的兒童。AI 秘書預設關閉，需要訂閱並由使用者自己打開、同意。</p>
 
   <h2>政策變更</h2>
   <p>若本政策有更新，會在本頁公告並更新生效日期。</p>
@@ -60,12 +60,12 @@
 
 <section id="en" lang="en">
   <h1>Privacy Policy</h1>
-  <p class="meta">Effective date: October 30, 2026</p>
+  <p class="meta">Effective date: November 9, 2026</p>
 
-  <p>Novi (the "App") is an offline-first personal note-taking tool. The principle is simple: <strong>your records stay on your phone. We cannot see them and we do not collect them.</strong> The one exception is Cloud AI, which you turn on yourself; what it sends, and to whom, is set out below.</p>
+  <p>Novi (the "App") is an offline-first personal note-taking tool. The principle is simple: <strong>your records stay on your phone. We cannot see them and we do not collect them.</strong> The one exception is the AI secretary, a Novi Pro subscription feature you turn on yourself; what it sends, and to whom, is set out below.</p>
 
   <h2>What we collect</h2>
-  <p><strong>We keep none of your data.</strong> The App has no accounts, no analytics, no ads and no third-party SDKs. The homework, exams, events, to-dos, spending and chat messages you enter are stored only in a database on your device. Data passes through our server only if you turn on Cloud AI (see "Cloud AI" below).</p>
+  <p><strong>We keep none of your data.</strong> The App has no accounts, no analytics, no ads and no third-party SDKs. The homework, exams, events, to-dos, spending and chat messages you enter are stored only in a database on your device. Data passes through our server only if you turn on the AI secretary (see "AI secretary" below).</p>
 
   <h2>Where your data lives</h2>
   <p>All data is kept on your iPhone, protected by the iOS app sandbox. If you have iCloud device backup turned on, this data is included in your own iOS backup; we have no access to that backup.</p>
@@ -79,11 +79,11 @@
   <h2>On-device AI</h2>
   <p>On iPhones with Apple Intelligence, Novi uses Apple's language model built into the phone to read harder sentences and to chat, looking at your plans for the next few days while it does. All of this runs on your phone; your sentences and plans never leave it. You can turn it off in General Settings → AI.</p>
 
-  <h2>Cloud AI (optional, off by default)</h2>
-  <p>If you turn on Cloud AI in General Settings → AI and agree to it, then when the built-in AI is unavailable or unsure, Novi sends <strong>the sentence you just typed</strong> and <strong>the titles of your open items</strong> (to match "move", "done" and "delete") through Novi's server on Cloudflare to Anthropic's Claude, which reads it or replies. Chat requests also carry the last few messages and the tone and nickname you chose.</p>
-  <p>The Novi Pro subscription adds the "AI secretary", off by default. If you turn it on and agree, requests to chat, plan your week or write advice for a custom brief also carry the titles and times of your homework, exams and events for the next 7 days, plus today's and tomorrow's classes. To confirm the subscription is active, the App includes Apple's signed proof of it, which the server checks on the spot and does not keep.</p>
+  <h2>AI secretary (cloud, subscription only, off by default)</h2>
+  <p>The AI secretary comes with the Novi Pro subscription and is off by default; without the subscription, or with it switched off, Novi sends nothing to the cloud. If you turn it on in General Settings → AI and agree, Novi sends <strong>the sentence you just typed</strong>, <strong>the titles of your open items</strong> (to match "move", "done" and "delete"), the last few messages, the tone and nickname you chose, and <strong>the titles and times of your homework, exams and events for the next 7 days</strong> plus today's and tomorrow's classes, through Novi's server on Cloudflare to Anthropic's Claude, which reads it, replies, plans your week or writes advice for a custom brief.</p>
+  <p>To confirm the subscription is active, the App includes Apple's signed proof of it, which the server checks on the spot and does not keep. To confirm requests come from the real Novi, the App uses Apple's App Attest; the server keeps that install's public key, which contains no personal information.</p>
   <p>The AI secretary can remember things you mention in chat that will matter later (such as "math is my weakest subject", or anything you say after "remember:"), up to 30 items. These are stored only on your iPhone and sent along only with chat and brief requests. Delete them one by one or all at once in Settings → What the secretary remembers.</p>
-  <p>Novi's server does not store this content or write it to its logs. To count the day's free uses it keeps only a random install ID that is not linked to you, deleted after two days. Anthropic handles these requests under its commercial terms, does not use them to train models, and may keep them for up to 30 days to prevent abuse. Turn off Cloud AI or the AI secretary at any time and nothing more is sent.</p>
+  <p>Novi's server does not store this content or write it to its logs. To count each day's usage limit it keeps only a random install ID that is not linked to you, deleted after two days. Anthropic handles these requests under its commercial terms, does not use them to train models, and may keep them for up to 30 days to prevent abuse. Turn off the AI secretary or cancel the subscription at any time and nothing more is sent.</p>
 
   <h2>Weather and location</h2>
   <p>Only if you turn on weather in a custom brief, the App asks for your location and sends coordinates rounded to about one kilometre to Apple's WeatherKit for the forecast. That request contains no name, account or records of yours. The App keeps only the forecast and place name on your phone, not the coordinates. Without weather turned on, this connection never happens.</p>
@@ -92,7 +92,7 @@
   <p>Items can be deleted one by one inside the App. To delete everything, remove the App from your iPhone; all of its data is deleted with it.</p>
 
   <h2>Children's privacy</h2>
-  <p>The App keeps no personal information about anyone, including children under 13. Cloud AI is off by default and has to be turned on and agreed to.</p>
+  <p>The App keeps no personal information about anyone, including children under 13. The AI secretary is off by default and needs a subscription, turning on and agreeing to.</p>
 
   <h2>Changes</h2>
   <p>Any update to this policy will be posted on this page with a new effective date.</p>
