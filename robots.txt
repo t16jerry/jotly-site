@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://heynovi.app/sitemap.xml

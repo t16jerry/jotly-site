@@ -1,42 +1,38 @@
+/* The privacy page: the same night as the home page, set for reading. */
 :root {
-  --ink: #1c1b2e;
-  --muted: #6b6a7d;
-  --accent: #5b4de6;
-  --bg: #fbfbfe;
-  --card: #ffffff;
-  --line: #e6e5f0;
-}
-@media (prefers-color-scheme: dark) {
-  :root { --ink: #f1f0fa; --muted: #a09fb3; --accent: #8f85ff; --bg: #121220; --card: #1b1b2c; --line: #2b2b40; }
+  color-scheme: dark;
+  --ink: #EDF3FB; --muted: #A3B4C9; --accent: #8FC4FF; --bg: #060A13; --card: #111A2D; --line: rgba(170, 200, 240, .16);
 }
 * { box-sizing: border-box; }
+html { background: var(--bg); scroll-behavior: smooth; }
 body {
   margin: 0;
-  font: 17px/1.65 -apple-system, "PingFang TC", "Noto Sans TC", system-ui, sans-serif;
+  font: 17px/1.8 -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", system-ui, sans-serif;
   color: var(--ink);
-  background: var(--bg);
+  background: radial-gradient(1100px 600px at 0% -10%, rgba(36, 80, 143, .45), transparent 70%), var(--bg);
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
 }
 header {
   display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-  padding: 16px clamp(16px, 5vw, 48px);
+  padding: 14px clamp(16px, 5vw, 48px);
   border-bottom: 1px solid var(--line);
 }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; color: var(--ink); text-decoration: none; }
+.brand { display: flex; align-items: center; gap: 10px; min-height: 44px; font: 800 20px/1 ui-rounded, "SF Pro Rounded", "PingFang TC", system-ui, sans-serif; color: var(--ink); text-decoration: none; }
 .brand img { border-radius: 10px; }
 .brand span { color: var(--muted); font-weight: 500; }
-nav a { color: var(--accent); text-decoration: none; }
+nav { color: var(--muted); }
+nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; color: var(--accent); text-decoration: none; font-weight: 600; }
 main { max-width: 720px; margin: 0 auto; padding: 24px clamp(16px, 5vw, 48px) 64px; }
-.hero { text-align: center; padding: 24px 0 8px; }
-.hero img { border-radius: 22px; box-shadow: 0 12px 32px rgba(91, 77, 230, .25); }
-.hero h1 { font-size: 32px; margin: 16px 0 8px; }
-.hero p { color: var(--muted); margin: 6px auto; max-width: 520px; }
-.hero .en { font-size: 15px; }
-h1 { font-size: 28px; margin: 24px 0 4px; }
-h2 { font-size: 20px; margin: 32px 0 8px; }
+h1, h2, h3 { font-family: ui-rounded, "SF Pro Rounded", "PingFang TC", system-ui, sans-serif; letter-spacing: -.01em; }
+h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.15; margin: 32px 0 6px; }
+h2 { font-size: 21px; margin: 36px 0 8px; }
 h3 { font-size: 17px; margin: 24px 0 4px; }
-p, li { margin: 6px 0; }
+p, li { margin: 8px 0; color: #D5E0EE; }
+strong { color: var(--ink); }
 .meta { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
 code { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; font-size: 15px; }
-hr { border: 0; border-top: 1px solid var(--line); margin: 48px 0; }
-a { color: var(--accent); }
-footer { text-align: center; color: var(--muted); font-size: 14px; padding: 24px; border-top: 1px solid var(--line); }
+hr { border: 0; border-top: 1px solid var(--line); margin: 56px 0; }
+a { color: var(--accent); text-underline-offset: 4px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+footer { text-align: center; color: var(--muted); font-size: 14px; padding: 28px 24px 40px; border-top: 1px solid var(--line); }

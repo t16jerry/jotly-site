@@ -10,19 +10,14 @@ const APP_STORE_URL = "";
   const META = {
     zh: {
       title: "Novi：打一句，幫你分好",
-      description: "Novi 是 iPhone 記事 app，也是陪你記事的小機器人。打一句話，作業、考試、行程、待辦、記帳自動分類，到時提醒。資料只存在你的手機。",
-      pause: "暫停",
-      play: "播放",
-      wearing: "Novi 穿著",
+      description: "Novi 是 iPhone 記事 app，也是陪你記事的小機器人。打一句話，作業、考試、行程、待辦、記帳自動分類，到時提醒。記錄留在你的手機。",
     },
     en: {
       title: "Novi: One line. Everything sorted.",
-      description: "Novi is a notes app for iPhone with a little robot friend. Type one line and homework, exams, events, to-dos and spending sort themselves and remind you. Stays on your phone.",
-      pause: "Pause",
-      play: "Play",
-      wearing: "Novi wearing",
+      description: "Novi is a notes app for iPhone with a little robot friend. Type one line and homework, exams, events, to-dos and spending sort themselves and remind you. Your records stay on your phone.",
     },
   };
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
   function stored() {
     try {
@@ -70,11 +65,13 @@ const APP_STORE_URL = "";
       button.setAttribute("aria-pressed", String(button.dataset.setLang === next));
     });
     changed.forEach((run) => run());
+    document.dispatchEvent(new CustomEvent("novi:lang"));
   }
 
   // Runs in <head> so the page never paints in the wrong language.
   root.dataset.lang = lang;
   root.lang = TAG[lang];
+  root.classList.add("js");
   if (APP_STORE_URL) root.classList.add("store-live");
 
   function setupStore() {
@@ -104,146 +101,260 @@ const APP_STORE_URL = "";
     });
   }
 
-  function setupDemo() {
-    const stage = document.querySelector("[data-demo]");
-    const pause = document.querySelector("[data-demo-pause]");
-    if (!stage || !pause) return;
-    const still = matchMedia("(prefers-reduced-motion: reduce)");
-    const lists = [...stage.querySelectorAll(".demo-list")];
-
-    // Keep the whole line for screen readers; only the visible copy is typed out.
-    lists.forEach((list) => {
-      [...list.children].forEach((item) => {
-        const bubble = item.querySelector(".bubble");
-        const line = bubble.textContent;
-        item.dataset.line = line;
-        const full = document.createElement("span");
-        full.className = "sr-only";
-        full.textContent = line;
-        const typed = document.createElement("span");
-        typed.className = "typed";
-        typed.setAttribute("aria-hidden", "true");
-        typed.textContent = line;
-        bubble.replaceChildren(full, typed);
-      });
+  function setupNav() {
+    const nav = document.querySelector("[data-nav]");
+    if (!nav) return;
+    const menu = nav.querySelector("[data-menu]");
+    const close = () => { nav.classList.remove("open"); if (menu) menu.setAttribute("aria-expanded", "false"); };
+    if (menu) menu.addEventListener("click", () => {
+      const open = nav.classList.toggle("open");
+      menu.setAttribute("aria-expanded", String(open));
     });
+    nav.querySelectorAll(".links a").forEach((a) => a.addEventListener("click", close));
+    addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    const mark = () => nav.classList.toggle("scrolled", scrollY > 30);
+    addEventListener("scroll", mark, { passive: true });
+    mark();
+  }
 
-    let run = 0;
-    let paused = false;
-    let inView = false;
-    let wake = null;
-
-    function label() {
-      pause.textContent = paused ? META[lang].play : META[lang].pause;
-      pause.setAttribute("aria-pressed", String(paused));
-    }
-
-    function resume() {
-      if (wake) wake();
-      wake = null;
-    }
-
-    async function wait(ms) {
-      await new Promise((done) => setTimeout(done, ms));
-      while (paused || !inView) await new Promise((done) => (wake = done));
-    }
-
-    function reset(list) {
-      list.classList.remove("playing");
-      [...list.children].forEach((item) => {
-        item.classList.remove("typing", "done");
-        item.querySelector(".typed").textContent = item.dataset.line;
+  function setupReveal() {
+    const items = document.querySelectorAll("[data-reveal]");
+    if (!("IntersectionObserver" in window)) { items.forEach((el) => el.classList.add("in")); return; }
+    const seen = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("in");
+        seen.unobserve(entry.target);
       });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    items.forEach((el) => seen.observe(el));
+  }
+
+  /* The hero's light follows the pointer, and the five tags drift at different depths. */
+  function setupHero() {
+    const hero = document.querySelector(".hero");
+    if (!hero || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    hero.addEventListener("pointermove", (e) => {
+      if (e.pointerType === "touch") return;
+      const box = hero.getBoundingClientRect();
+      hero.style.setProperty("--mx", (e.clientX - box.left).toFixed(0) + "px");
+      hero.style.setProperty("--my", (e.clientY - box.top).toFixed(0) + "px");
+      hero.style.setProperty("--px", ((e.clientX / innerWidth - 0.5) * 2).toFixed(3));
+      hero.style.setProperty("--py", ((e.clientY / innerHeight - 0.5) * 2).toFixed(3));
+    }, { passive: true });
+  }
+
+  /* ---------- try it: a small stand-in for the app's parser ---------- */
+
+  const WORDS = {
+    zh: { homework: "作業", exam: "考試", event: "行程", todo: "待辦", expense: "記帳", nodate: "沒有日期", notime: "沒寫日期",
+          remind: { homework: "提醒：1 天前、2 小時前", exam: "提醒：3 天前、1 天前、1 小時前", event: "提醒：1 小時前、5 分鐘前" },
+          cats: { food: "餐飲", move: "交通", fun: "娛樂", other: "其他" }, placeholder: "隨口記一件事…", send: "送出" },
+    en: { homework: "Homework", exam: "Exam", event: "Event", todo: "To-do", expense: "Spending", nodate: "No date", notime: "No date given",
+          remind: { homework: "Reminders: 1 day, 2 h before", exam: "Reminders: 3 days, 1 day, 1 h before", event: "Reminders: 1 h, 5 min before" },
+          cats: { food: "Food", move: "Transport", fun: "Fun", other: "Other" }, placeholder: "Jot something down…", send: "Send" },
+  };
+  const ICON = { homework: "i-homework", exam: "i-exam", event: "i-event", todo: "i-check", expense: "i-expense" };
+  const WHEN = /(今天|今晚|明天|後天|大後天|下?(?:週|星期|禮拜)[一二三四五六日天]|下個?月\s*\d{1,2}[號日]?|\d{1,2}月\d{1,2}[日號]?|\d{1,2}\/\d{1,2}|(?:早上|上午|中午|下午|晚上)?\s*\d{1,2}(?:[:：]\d{2}|[點点]半?(?:\d{1,2}分)?)|\b(?:today|tonight|tomorrow)\b|\bnext\s+(?:week|mon|tue|wed|thu|fri|sat|sun)[a-z]*|\b(?:mon|tue|wed|thu|fri|sat|sun)(?:day|sday|nesday|rsday|urday)?\b|\b\d{1,2}(?::\d{2})?\s*(?:am|pm)\b|\b\d{1,2}:\d{2}\b)/gi;
+  const EXAM = /(考試|小考|段考|期中|期末|測驗|考|\b(?:quiz|exam|test|midterm|final)s?\b)/i;
+  const HOMEWORK = /(作業|報告|習題|功課|\b(?:essay|homework|assignment|report|paper|hw|worksheet)\b|\bdue\b)/i;
+  const MONEY = /^(.*?)[\s　]*(?:nt\$|\$|＄)?\s*(\d+(?:\.\d{1,2})?)\s*(?:元|塊|块|dollars?|bucks)?$/i;
+  const CAT = [
+    ["food", /(餐|飯|吃|喝|咖啡|奶茶|手搖|便當|麵|lunch|dinner|breakfast|brunch|coffee|boba|tea|food|pizza|snack)/i],
+    ["move", /(車|捷運|公車|高鐵|加油|油錢|uber|bus|taxi|train|gas|parking|transit)/i],
+    ["fun", /(電影|遊戲|唱歌|球|movie|game|golf|concert|ticket)/i],
+  ];
+
+  function sort(line, which) {
+    const w = WORDS[which], text = line.trim().replace(/\s+/g, " ");
+    const times = text.match(WHEN) || [];
+    const bare = text.replace(WHEN, " ").replace(/\b(?:due|on|at|by)\b/gi, " ").replace(/\s+/g, " ").trim();
+    const when = times.join(" ").replace(/\s+/g, " ").trim();
+    if (EXAM.test(text)) return { type: "exam", title: bare || text, line: when || w.notime, fine: when ? w.remind.exam : "" };
+    if (HOMEWORK.test(text)) return { type: "homework", title: bare || text, line: when || w.notime, fine: when ? w.remind.homework : "" };
+    const money = !times.length && text.match(MONEY);
+    if (money && money[1].trim()) {
+      const note = money[1].trim(), amount = Number(money[2]);
+      const cat = (CAT.find((c) => c[1].test(note)) || ["other"])[0];
+      const shown = which === "zh" ? amount + " 元" : "$" + (Number.isInteger(amount) ? amount : amount.toFixed(2));
+      return { type: "expense", title: shown, line: w.cats[cat] + " · " + note, fine: "" };
+    }
+    if (times.length) return { type: "event", title: bare || text, line: when, fine: w.remind.event };
+    return { type: "todo", title: text.replace(/^(記得|要|remember to|don't forget to)\s*/i, "") || text, line: w.nodate, fine: "" };
+  }
+
+  function setupConsole() {
+    const box = document.querySelector("[data-console]");
+    if (!box) return;
+    const thread = box.querySelector("[data-thread]"), form = box.querySelector("[data-composer]"), input = box.querySelector("[data-input]");
+    const still = matchMedia("(prefers-reduced-motion: reduce)");
+    let touched = false, run = 0;
+
+    function element(tag, cls, text) {
+      const el = document.createElement(tag);
+      if (cls) el.className = cls;
+      if (text != null) el.textContent = text;
+      return el;
     }
 
-    async function play(id, list) {
-      list.classList.add("playing");
-      const items = [...list.children];
-      while (id === run) {
-        for (const item of items) {
-          const typed = item.querySelector(".typed");
-          typed.textContent = "";
-          item.classList.add("typing");
-          for (const letter of Array.from(item.dataset.line)) {
-            typed.textContent += letter;
-            await wait(letter === " " ? 60 : 95);
-            if (id !== run) return;
-          }
-          await wait(560);
-          if (id !== run) return;
-          item.classList.remove("typing");
-          item.classList.add("done");
-          await wait(1500);
-          if (id !== run) return;
-        }
-        await wait(2800);
-        if (id !== run) return;
-        items.forEach((item) => item.classList.remove("done"));
-        await wait(350);
-        if (id !== run) return;
+    function add(line, quiet) {
+      const r = sort(line, lang), w = WORDS[lang];
+      const item = element("li");
+      item.append(element("p", "me", line));
+      const card = element("div", "card t-" + r.type);
+      const tile = element("span", "tile");
+      tile.innerHTML = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#' + ICON[r.type] + '"/></svg>';
+      const body = element("div");
+      const head = element("p", "ct");
+      head.append(element("b", "", r.title), element("span", "tag", w[r.type]));
+      body.append(head, element("p", "", r.line));
+      if (r.fine) body.append(element("p", "", r.fine));
+      card.append(tile, body);
+      item.append(card);
+      thread.append(item);
+      while (thread.children.length > 3) thread.firstElementChild.remove();
+      if (!quiet && window.Novi) {
+        window.Novi.play(r.type === "expense" ? "nod" : r.type === "exam" ? "flex" : r.type === "todo" ? "clap" : "celebrate");
+        window.Novi.say("filed", 2600);
       }
     }
 
-    function start() {
-      run += 1;
-      resume();
-      lists.forEach(reset);
-      pause.hidden = still.matches;
-      label();
-      if (still.matches) return;
-      const list = lists.find((item) => item.lang === TAG[lang]);
-      if (list) play(run, list);
+    function examples() {
+      return [...box.querySelectorAll('[data-line][lang="' + TAG[lang] + '"]')].map((b) => b.textContent.trim());
     }
 
-    pause.addEventListener("click", () => {
-      paused = !paused;
-      label();
-      if (!paused) resume();
+    const wait = (ms) => new Promise((done) => setTimeout(done, ms));
+
+    /* Until someone types, Novi's examples type themselves once. */
+    async function auto() {
+      const id = ++run, lines = examples().slice(0, 3);
+      thread.replaceChildren();
+      if (still.matches) { lines.forEach((line) => add(line, true)); return; }
+      for (const line of lines) {
+        input.value = "";
+        for (const letter of Array.from(line)) {
+          if (id !== run || touched) return;
+          input.value += letter;
+          await wait(letter === " " ? 50 : 80);
+        }
+        await wait(420);
+        if (id !== run || touched) return;
+        input.value = "";
+        add(line, true);
+        await wait(1300);
+      }
+    }
+
+    function stopAuto() {
+      if (touched) return;
+      touched = true; run += 1; input.value = "";
+    }
+
+    input.addEventListener("focus", () => { stopAuto(); root.classList.add("typing"); if (window.Novi) window.Novi.play("typing"); });
+    input.addEventListener("blur", () => root.classList.remove("typing"));
+    input.addEventListener("pointerdown", stopAuto);
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const line = input.value.trim();
+      stopAuto();
+      if (!line) return;
+      add(line.slice(0, 80));
+      input.value = "";
     });
-    new IntersectionObserver((entries) => {
-      inView = entries[entries.length - 1].isIntersecting;
-      if (inView && !paused) resume();
-    }, { threshold: 0.2 }).observe(stage);
-    still.addEventListener("change", start);
-    changed.push(start);
-    start();
+    box.querySelectorAll("[data-line]").forEach((chip) => chip.addEventListener("click", () => { stopAuto(); add(chip.textContent.trim()); }));
+
+    function label() {
+      input.placeholder = WORDS[lang].placeholder;
+      input.setAttribute("aria-label", WORDS[lang].placeholder);
+      form.querySelector("button").setAttribute("aria-label", WORDS[lang].send);
+    }
+    changed.push(() => { label(); if (!touched && started) auto(); else thread.replaceChildren(); });
+    label();
+
+    let started = false;
+    new IntersectionObserver((entries, seen) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      seen.disconnect();
+      started = true;
+      auto();
+    }, { threshold: 0.35 }).observe(box);
+  }
+
+  /* ---------- the tour: one screen, six phones passing through ---------- */
+
+  function setupTour() {
+    const tour = document.querySelector("[data-tour]");
+    if (!tour) return;
+    const slides = [...tour.querySelectorAll("[data-slide]")], phones = [...tour.querySelectorAll("[data-phone]")];
+    const dots = [...tour.querySelectorAll("[data-dot]")], stage = tour.querySelector(".tour-stage");
+    const still = matchMedia("(prefers-reduced-motion: reduce)");
+    const count = slides.length;
+    let index = -1, queued = false, inside = false;
+
+    function cueNovi() {
+      if (!window.Novi || index < 0) return;
+      // Novi crosses behind the phones each time, so it is always on the far side of the last stop.
+      const odd = index % 2 === 1;
+      window.Novi.cue({ x: odd ? 0.93 : 0.47, xm: odd ? 0.86 : 0.14, move: index === 0 ? "wave" : "point", say: slides[index].dataset.slide });
+    }
+
+    function update() {
+      queued = false;
+      if (still.matches) { phones.forEach((p) => { p.style.transform = ""; p.style.opacity = ""; }); return; }
+      const box = tour.getBoundingClientRect(), span = box.height - innerHeight;
+      const p = clamp(-box.top / span, 0, 1) * (count - 1);
+      const narrow = innerWidth < 900, spread = narrow ? innerWidth * 0.6 : Math.min(innerWidth * 0.3, 400);
+      phones.forEach((phone, i) => {
+        const d = i - p, a = Math.abs(d), near = clamp(d, -1.6, 1.6);
+        // A phone that has gone by slips away quickly, so it never sits over the words on the left.
+        const x = d < 0 && !narrow ? near * spread * 0.55 : near * spread;
+        phone.style.transform = "translate3d(" + x.toFixed(1) + "px," + (a * a * -10).toFixed(1) + "px," + (-a * 300).toFixed(1) + "px) rotateY(" + (near * -38).toFixed(2) + "deg) rotateZ(" + (near * 2.5).toFixed(2) + "deg)";
+        phone.style.opacity = (d < 0 ? clamp(1 + d * 1.7, 0, 1) : clamp(1.9 - a * 1.15, 0, 1)).toFixed(3);
+        phone.style.zIndex = String(50 - Math.round(a * 10));
+      });
+      const next = Math.round(p);
+      if (next !== index) {
+        index = next;
+        slides.forEach((s, i) => s.classList.toggle("on", i === index));
+        dots.forEach((dot, i) => dot.setAttribute("aria-current", String(i === index)));
+        stage.style.setProperty("--tone", "var(--" + slides[index].dataset.tone + ")");
+        if (inside) cueNovi();
+      }
+    }
+
+    function ask() { if (!queued) { queued = true; requestAnimationFrame(update); } }
+    addEventListener("scroll", ask, { passive: true });
+    addEventListener("resize", ask);
+    document.addEventListener("novi:stop", (e) => { inside = e.detail === "tour"; if (inside) cueNovi(); });
+    document.addEventListener("novi:ready", () => { if (inside) cueNovi(); });
+    dots.forEach((dot, i) => dot.addEventListener("click", () => {
+      const box = tour.getBoundingClientRect(), span = box.height - innerHeight;
+      scrollTo({ top: scrollY + box.top + (span * i) / (count - 1), behavior: still.matches ? "auto" : "smooth" });
+    }));
+    update();
   }
 
   function setupWardrobe() {
-    const picture = document.querySelector("[data-fitting]");
-    const name = document.querySelector("[data-fitting-name]");
     const rack = document.querySelector("[data-rack]");
-    if (!picture || !name || !rack) return;
+    if (!rack) return;
     const buttons = [...rack.querySelectorAll("[data-outfit]")];
-
-    function caption() {
-      const on = buttons.find((button) => button.getAttribute("aria-pressed") === "true");
-      const label = on.querySelector(`[lang="${TAG[lang]}"]`).textContent;
-      picture.alt = `${META[lang].wearing} ${label}`;
-    }
-
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => {
-        buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
-        const image = button.querySelector("img");
-        picture.src = image.getAttribute("src");
-        picture.setAttribute("width", image.getAttribute("width"));
-        picture.setAttribute("height", image.getAttribute("height"));
-        name.replaceChildren(...[...button.querySelectorAll("span")].map((item) => item.cloneNode(true)));
-        picture.classList.remove("hop");
-        void picture.offsetWidth;
-        picture.classList.add("hop");
-        caption();
-      });
-    });
-    changed.push(caption);
-    caption();
+    const mark = (id) => buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.outfit === id)));
+    buttons.forEach((button) => button.addEventListener("click", () => {
+      mark(button.dataset.outfit);
+      if (window.Novi) window.Novi.wear(button.dataset.outfit);
+    }));
+    document.addEventListener("novi:ready", () => mark(window.Novi.outfit()));
+    mark("none");
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     setupStore();
     setupSwitch();
-    setupDemo();
+    setupNav();
+    setupReveal();
+    setupHero();
+    setupConsole();
+    setupTour();
     setupWardrobe();
     apply(lang);
   });
